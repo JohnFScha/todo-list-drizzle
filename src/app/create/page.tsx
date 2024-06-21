@@ -13,8 +13,6 @@ export default async function page() {
       done: false
     }
 
-    console.log(newTodo)
-
     const data = await insertTodo(newTodo)
 
     data ? redirect('/') : console.log('Error creating todo')
