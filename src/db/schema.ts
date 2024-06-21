@@ -24,4 +24,9 @@ export const todos = pgTable('todo', {
 
 export type Todo = typeof todos.$inferSelect; // return type when queried
 export type NewTodo = typeof todos.$inferInsert; // insert type
+
+export async function insertTodo(todo: NewTodo): Promise<Todo[]> {
+  return db.insert(todos).values(todo).returning();
+}
+
 export default db;
