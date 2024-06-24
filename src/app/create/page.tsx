@@ -1,6 +1,7 @@
 import { insertTodo } from "@/db/schema"
 import { NewTodo } from "@/db/schema"
 import { redirect } from "next/navigation"
+import generateHash from '@/utils/generateHash'
 
 export default async function page() {
 
@@ -8,6 +9,7 @@ export default async function page() {
     'use server'
 
     const newTodo: NewTodo = {
+      id: generateHash(formData.get('title') as string),
       title: formData.get('title') as string,
       description: formData.get('description') as string,
       done: false

@@ -1,4 +1,4 @@
-import { pgTable, serial, text, varchar, boolean, date } from 'drizzle-orm/pg-core';
+import { pgTable, text, varchar, boolean, date } from 'drizzle-orm/pg-core';
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Client } from "pg";
 const credentials = process.env.NEXT_PUBLIC_PG_CONNECTION_STRING;
@@ -14,7 +14,7 @@ client.connect()
 const db = drizzle(client);
 
 export const todos = pgTable('todo', {
-  id: serial('id').primaryKey(),
+  id: text('id').primaryKey().notNull(),
   title: text('title'),
   description: varchar('description', { length: 256 }),
   done: boolean('done').default(false),
