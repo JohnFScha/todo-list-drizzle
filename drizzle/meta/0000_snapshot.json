@@ -1,28 +1,368 @@
 {
-  "id": "5eaee4cf-f68f-40c0-abc4-7a20737450ca",
+  "id": "1f22a978-3d56-4902-860c-33fa45b427c2",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.todo": {
-      "name": "todo",
+    "public.Barrios": {
+      "name": "Barrios",
       "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "uuid",
           "primaryKey": true,
           "notNull": true
         },
-        "full_name": {
-          "name": "full_name",
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "LocalidadId": {
+          "name": "LocalidadId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ProvinciumId": {
+          "name": "ProvinciumId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ProvinciaBarrioId": {
+          "name": "ProvinciaBarrioId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Barrios_LocalidadId_Localidads_id_fk": {
+          "name": "Barrios_LocalidadId_Localidads_id_fk",
+          "tableFrom": "Barrios",
+          "tableTo": "Localidads",
+          "columnsFrom": [
+            "LocalidadId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "cascade"
+        },
+        "Barrios_ProvinciumId_Provincia_id_fk": {
+          "name": "Barrios_ProvinciumId_Provincia_id_fk",
+          "tableFrom": "Barrios",
+          "tableTo": "Provincia",
+          "columnsFrom": [
+            "ProvinciumId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "cascade"
+        },
+        "Barrios_ProvinciaBarrioId_Provincia_id_fk": {
+          "name": "Barrios_ProvinciaBarrioId_Provincia_id_fk",
+          "tableFrom": "Barrios",
+          "tableTo": "Provincia",
+          "columnsFrom": [
+            "ProvinciaBarrioId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.ContractTypes": {
+      "name": "ContractTypes",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "contractType": {
+          "name": "contractType",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data": {
+          "name": "data",
           "type": "text",
           "primaryKey": false,
           "notNull": false
         },
-        "phone": {
-          "name": "phone",
-          "type": "varchar(256)",
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "ContractTypes_contractType_key": {
+          "name": "ContractTypes_contractType_key",
+          "nullsNotDistinct": false,
+          "columns": [
+            "contractType"
+          ]
+        }
+      }
+    },
+    "public.Contracts": {
+      "name": "Contracts",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "contractTypeId": {
+          "name": "contractTypeId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "enum_Contracts_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "operationType": {
+          "name": "operationType",
+          "type": "enum_Contracts_operationType",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "operationId": {
+          "name": "operationId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "postId": {
+          "name": "postId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "contractId": {
+          "name": "contractId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "url": {
+          "name": "url",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "enum_Contracts_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "propertyOwnerId": {
+          "name": "propertyOwnerId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tenantId": {
+          "name": "tenantId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "signWithFlexy": {
+          "name": "signWithFlexy",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "initDate": {
+          "name": "initDate",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "endDate": {
+          "name": "endDate",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "deletedAt": {
+          "name": "deletedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Contracts_contractTypeId_ContractTypes_id_fk": {
+          "name": "Contracts_contractTypeId_ContractTypes_id_fk",
+          "tableFrom": "Contracts",
+          "tableTo": "ContractTypes",
+          "columnsFrom": [
+            "contractTypeId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "cascade"
+        },
+        "Contracts_propertyOwnerId_Users_id_fk": {
+          "name": "Contracts_propertyOwnerId_Users_id_fk",
+          "tableFrom": "Contracts",
+          "tableTo": "Users",
+          "columnsFrom": [
+            "propertyOwnerId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "cascade"
+        },
+        "Contracts_tenantId_Users_id_fk": {
+          "name": "Contracts_tenantId_Users_id_fk",
+          "tableFrom": "Contracts",
+          "tableTo": "Users",
+          "columnsFrom": [
+            "tenantId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.Cupons": {
+      "name": "Cupons",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expiration": {
+          "name": "expiration",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "amount": {
+          "name": "amount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "percent": {
+          "name": "percent",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "totalApplications": {
+          "name": "totalApplications",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "enum_Cupons_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Active'"
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "deletedAt": {
+          "name": "deletedAt",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": false
         }
@@ -31,9 +371,2347 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
+    },
+    "public.Favorites": {
+      "name": "Favorites",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "idPublicacion": {
+          "name": "idPublicacion",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "UserId": {
+          "name": "UserId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Favorites_UserId_Users_id_fk": {
+          "name": "Favorites_UserId_Users_id_fk",
+          "tableFrom": "Favorites",
+          "tableTo": "Users",
+          "columnsFrom": [
+            "UserId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.KitepropSeguimientos": {
+      "name": "KitepropSeguimientos",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "kitepropId": {
+          "name": "kitepropId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.Localidads": {
+      "name": "Localidads",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "PartidoId": {
+          "name": "PartidoId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ProvinciumId": {
+          "name": "ProvinciumId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ProvinciaLocalidadId": {
+          "name": "ProvinciaLocalidadId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Localidads_PartidoId_Partidos_id_fk": {
+          "name": "Localidads_PartidoId_Partidos_id_fk",
+          "tableFrom": "Localidads",
+          "tableTo": "Partidos",
+          "columnsFrom": [
+            "PartidoId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "cascade"
+        },
+        "Localidads_ProvinciumId_Provincia_id_fk": {
+          "name": "Localidads_ProvinciumId_Provincia_id_fk",
+          "tableFrom": "Localidads",
+          "tableTo": "Provincia",
+          "columnsFrom": [
+            "ProvinciumId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "cascade"
+        },
+        "Localidads_ProvinciaLocalidadId_Provincia_id_fk": {
+          "name": "Localidads_ProvinciaLocalidadId_Provincia_id_fk",
+          "tableFrom": "Localidads",
+          "tableTo": "Provincia",
+          "columnsFrom": [
+            "ProvinciaLocalidadId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.MercadopagoNotifications": {
+      "name": "MercadopagoNotifications",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "topic": {
+          "name": "topic",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "dataId": {
+          "name": "dataId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "authorization": {
+          "name": "authorization",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "externalReference": {
+          "name": "externalReference",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "additionalInfo": {
+          "name": "additionalInfo",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.Messages": {
+      "name": "Messages",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "ticketId": {
+          "name": "ticketId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sender": {
+          "name": "sender",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "watched": {
+          "name": "watched",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "reminders": {
+          "name": "reminders",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "deletedAt": {
+          "name": "deletedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Messages_ticketId_Tickets_id_fk": {
+          "name": "Messages_ticketId_Tickets_id_fk",
+          "tableFrom": "Messages",
+          "tableTo": "Tickets",
+          "columnsFrom": [
+            "ticketId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "Messages_sender_Users_id_fk": {
+          "name": "Messages_sender_Users_id_fk",
+          "tableFrom": "Messages",
+          "tableTo": "Users",
+          "columnsFrom": [
+            "sender"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.Packs": {
+      "name": "Packs",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "price": {
+          "name": "price",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "quantity": {
+          "name": "quantity",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.Partidos": {
+      "name": "Partidos",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SubProvinciumId": {
+          "name": "SubProvinciumId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ProvinciumId": {
+          "name": "ProvinciumId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ProvinciaPartidoId": {
+          "name": "ProvinciaPartidoId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Partidos_SubProvinciumId_SubProvincia_id_fk": {
+          "name": "Partidos_SubProvinciumId_SubProvincia_id_fk",
+          "tableFrom": "Partidos",
+          "tableTo": "SubProvincia",
+          "columnsFrom": [
+            "SubProvinciumId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "cascade"
+        },
+        "Partidos_ProvinciumId_Provincia_id_fk": {
+          "name": "Partidos_ProvinciumId_Provincia_id_fk",
+          "tableFrom": "Partidos",
+          "tableTo": "Provincia",
+          "columnsFrom": [
+            "ProvinciumId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "cascade"
+        },
+        "Partidos_ProvinciaPartidoId_Provincia_id_fk": {
+          "name": "Partidos_ProvinciaPartidoId_Provincia_id_fk",
+          "tableFrom": "Partidos",
+          "tableTo": "Provincia",
+          "columnsFrom": [
+            "ProvinciaPartidoId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.Payments": {
+      "name": "Payments",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "preferenceId": {
+          "name": "preferenceId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "collectionId": {
+          "name": "collectionId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "paymentId": {
+          "name": "paymentId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "paymentLink": {
+          "name": "paymentLink",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price": {
+          "name": "price",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "priceWithDiscount": {
+          "name": "priceWithDiscount",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "enum_Payments_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "enum_Payments_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "paymentMethod": {
+          "name": "paymentMethod",
+          "type": "enum_Payments_paymentMethod",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pendingStatusNotified": {
+          "name": "pendingStatusNotified",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "expirationDate": {
+          "name": "expirationDate",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "packId": {
+          "name": "packId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Payments_paymentId_Packs_id_fk": {
+          "name": "Payments_paymentId_Packs_id_fk",
+          "tableFrom": "Payments",
+          "tableTo": "Packs",
+          "columnsFrom": [
+            "paymentId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "Payments_packId_Packs_id_fk": {
+          "name": "Payments_packId_Packs_id_fk",
+          "tableFrom": "Payments",
+          "tableTo": "Packs",
+          "columnsFrom": [
+            "packId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.Posts": {
+      "name": "Posts",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "owner": {
+          "name": "owner",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "property": {
+          "name": "property",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "enum_Posts_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "publicationType": {
+          "name": "publicationType",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "currency": {
+          "name": "currency",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'UF'"
+        },
+        "price": {
+          "name": "price",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cleaningFee": {
+          "name": "cleaningFee",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "expenseTypes": {
+          "name": "expenseTypes",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "expenseCurrency": {
+          "name": "expenseCurrency",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'UF'"
+        },
+        "expensePrice": {
+          "name": "expensePrice",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "finance": {
+          "name": "finance",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "disponibilidad": {
+          "name": "disponibilidad",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "specificPrices": {
+          "name": "specificPrices",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "periodo": {
+          "name": "periodo",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "garantia": {
+          "name": "garantia",
+          "type": "varchar(255)[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "authorization": {
+          "name": "authorization",
+          "type": "varchar(255)[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "minimum_days": {
+          "name": "minimum_days",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "amount_minimum_days": {
+          "name": "amount_minimum_days",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "enum_Posts_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "periodoAumento": {
+          "name": "periodoAumento",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cbu": {
+          "name": "cbu",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "visits": {
+          "name": "visits",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "kitepropId": {
+          "name": "kitepropId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "kitepropLastUpdate": {
+          "name": "kitepropLastUpdate",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "deletedAt": {
+          "name": "deletedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ContractId": {
+          "name": "ContractId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Posts_owner_Users_id_fk": {
+          "name": "Posts_owner_Users_id_fk",
+          "tableFrom": "Posts",
+          "tableTo": "Users",
+          "columnsFrom": [
+            "owner"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "Posts_property_Properties_id_fk": {
+          "name": "Posts_property_Properties_id_fk",
+          "tableFrom": "Posts",
+          "tableTo": "Properties",
+          "columnsFrom": [
+            "property"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "Posts_ContractId_Contracts_id_fk": {
+          "name": "Posts_ContractId_Contracts_id_fk",
+          "tableFrom": "Posts",
+          "tableTo": "Contracts",
+          "columnsFrom": [
+            "ContractId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.Properties": {
+      "name": "Properties",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "owner": {
+          "name": "owner",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "typeProp": {
+          "name": "typeProp",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "street": {
+          "name": "street",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "intersectionOne": {
+          "name": "intersectionOne",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "intersectionTwo": {
+          "name": "intersectionTwo",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pais": {
+          "name": "pais",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "province": {
+          "name": "province",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "state": {
+          "name": "state",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "city": {
+          "name": "city",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "barrio": {
+          "name": "barrio",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "postalCode": {
+          "name": "postalCode",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "number": {
+          "name": "number",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "piso": {
+          "name": "piso",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "depto": {
+          "name": "depto",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lat": {
+          "name": "lat",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "long": {
+          "name": "long",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "video": {
+          "name": "video",
+          "type": "varchar(255)[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "plane": {
+          "name": "plane",
+          "type": "varchar(255)[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "deed": {
+          "name": "deed",
+          "type": "varchar(255)[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "mainImage": {
+          "name": "mainImage",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "multimedia": {
+          "name": "multimedia",
+          "type": "varchar(255)[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "propertyStatus": {
+          "name": "propertyStatus",
+          "type": "enum_Properties_propertyStatus",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ambient": {
+          "name": "ambient",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "bedroom": {
+          "name": "bedroom",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "bathroom": {
+          "name": "bathroom",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "beds": {
+          "name": "beds",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "travellersCapacity": {
+          "name": "travellersCapacity",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "surface": {
+          "name": "surface",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "mCovered": {
+          "name": "mCovered",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "antiquity": {
+          "name": "antiquity",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "generalAttributes": {
+          "name": "generalAttributes",
+          "type": "varchar(255)[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "typesAmbients": {
+          "name": "typesAmbients",
+          "type": "varchar(255)[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "services": {
+          "name": "services",
+          "type": "varchar(255)[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "facilities": {
+          "name": "facilities",
+          "type": "varchar(255)[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "securityItems": {
+          "name": "securityItems",
+          "type": "varchar(255)[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "quickDescription": {
+          "name": "quickDescription",
+          "type": "varchar(255)[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "disponibilidad": {
+          "name": "disponibilidad",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "hostingType": {
+          "name": "hostingType",
+          "type": "enum_Properties_hostingType",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "documents": {
+          "name": "documents",
+          "type": "varchar(255)[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "deletedAt": {
+          "name": "deletedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Properties_owner_Users_id_fk": {
+          "name": "Properties_owner_Users_id_fk",
+          "tableFrom": "Properties",
+          "tableTo": "Users",
+          "columnsFrom": [
+            "owner"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "Properties_typeProp_PropertyTypes_id_fk": {
+          "name": "Properties_typeProp_PropertyTypes_id_fk",
+          "tableFrom": "Properties",
+          "tableTo": "PropertyTypes",
+          "columnsFrom": [
+            "typeProp"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.PropertyTypes": {
+      "name": "PropertyTypes",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'housing'"
+        },
+        "applications": {
+          "name": "applications",
+          "type": "varchar(255)[]",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.Provincia": {
+      "name": "Provincia",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.SubProvincia": {
+      "name": "SubProvincia",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ProvinciumId": {
+          "name": "ProvinciumId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "SubProvincia_ProvinciumId_Provincia_id_fk": {
+          "name": "SubProvincia_ProvinciumId_Provincia_id_fk",
+          "tableFrom": "SubProvincia",
+          "tableTo": "Provincia",
+          "columnsFrom": [
+            "ProvinciumId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.Tasks": {
+      "name": "Tasks",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "taskNum": {
+          "name": "taskNum",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "enum_Tasks_description",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "assignedOffice": {
+          "name": "assignedOffice",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "enum_Tasks_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "objectId": {
+          "name": "objectId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "initiator": {
+          "name": "initiator",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "contraparte": {
+          "name": "contraparte",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "contract": {
+          "name": "contract",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "category": {
+          "name": "category",
+          "type": "enum_Tasks_category",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "asunto": {
+          "name": "asunto",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "priority": {
+          "name": "priority",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "document": {
+          "name": "document",
+          "type": "varchar(255)[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reasonForResolution": {
+          "name": "reasonForResolution",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "Tasks_taskNum_key": {
+          "name": "Tasks_taskNum_key",
+          "nullsNotDistinct": false,
+          "columns": [
+            "taskNum"
+          ]
+        }
+      }
+    },
+    "public.Tickets": {
+      "name": "Tickets",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "ticketNum": {
+          "name": "ticketNum",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "enum_Tickets_description",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "assignedOffice": {
+          "name": "assignedOffice",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "state": {
+          "name": "state",
+          "type": "enum_Tickets_state",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Abierto'"
+        },
+        "objectId": {
+          "name": "objectId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "initiator": {
+          "name": "initiator",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "counterpart": {
+          "name": "counterpart",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "watched": {
+          "name": "watched",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "contract": {
+          "name": "contract",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "category": {
+          "name": "category",
+          "type": "enum_Tickets_category",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "priority": {
+          "name": "priority",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "document": {
+          "name": "document",
+          "type": "varchar(255)[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reasonForResolution": {
+          "name": "reasonForResolution",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "deletedAt": {
+          "name": "deletedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Tickets_assignedOffice_Users_id_fk": {
+          "name": "Tickets_assignedOffice_Users_id_fk",
+          "tableFrom": "Tickets",
+          "tableTo": "Users",
+          "columnsFrom": [
+            "assignedOffice"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "cascade"
+        },
+        "Tickets_initiator_Users_id_fk": {
+          "name": "Tickets_initiator_Users_id_fk",
+          "tableFrom": "Tickets",
+          "tableTo": "Users",
+          "columnsFrom": [
+            "initiator"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "Tickets_counterpart_Users_id_fk": {
+          "name": "Tickets_counterpart_Users_id_fk",
+          "tableFrom": "Tickets",
+          "tableTo": "Users",
+          "columnsFrom": [
+            "counterpart"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.UserCupons": {
+      "name": "UserCupons",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cuponId": {
+          "name": "cuponId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "usedAt": {
+          "name": "usedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "deletedAt": {
+          "name": "deletedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "UserId": {
+          "name": "UserId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "CuponId": {
+          "name": "CuponId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "user_cupons_user_id_cupon_id": {
+          "name": "user_cupons_user_id_cupon_id",
+          "columns": [
+            {
+              "expression": "userId",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "cuponId",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "UserCupons_userId_Users_id_fk": {
+          "name": "UserCupons_userId_Users_id_fk",
+          "tableFrom": "UserCupons",
+          "tableTo": "Users",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "UserCupons_cuponId_Cupons_id_fk": {
+          "name": "UserCupons_cuponId_Cupons_id_fk",
+          "tableFrom": "UserCupons",
+          "tableTo": "Cupons",
+          "columnsFrom": [
+            "cuponId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "UserCupons_UserId_Users_id_fk": {
+          "name": "UserCupons_UserId_Users_id_fk",
+          "tableFrom": "UserCupons",
+          "tableTo": "Users",
+          "columnsFrom": [
+            "UserId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "UserCupons_CuponId_Cupons_id_fk": {
+          "name": "UserCupons_CuponId_Cupons_id_fk",
+          "tableFrom": "UserCupons",
+          "tableTo": "Cupons",
+          "columnsFrom": [
+            "CuponId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "UserCupons_UserId_CuponId_key": {
+          "name": "UserCupons_UserId_CuponId_key",
+          "nullsNotDistinct": false,
+          "columns": [
+            "UserId",
+            "CuponId"
+          ]
+        }
+      }
+    },
+    "public.Users": {
+      "name": "Users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lastname": {
+          "name": "lastname",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "inmobiliaria": {
+          "name": "inmobiliaria",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "imagen_profile": {
+          "name": "imagen_profile",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "type": {
+          "name": "type",
+          "type": "enum_Users_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "street": {
+          "name": "street",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "number": {
+          "name": "number",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "intersectionOne": {
+          "name": "intersectionOne",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "intersectionTwo": {
+          "name": "intersectionTwo",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "piso": {
+          "name": "piso",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "depto": {
+          "name": "depto",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pais": {
+          "name": "pais",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "provincia": {
+          "name": "provincia",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "partido_localidad": {
+          "name": "partido_localidad",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "city": {
+          "name": "city",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "phone": {
+          "name": "phone",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dni": {
+          "name": "dni",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cuilcuit": {
+          "name": "cuilcuit",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cbu": {
+          "name": "cbu",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "postal_code": {
+          "name": "postal_code",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dni_frente": {
+          "name": "dni_frente",
+          "type": "varchar(255)[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dni_dorso": {
+          "name": "dni_dorso",
+          "type": "varchar(255)[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "imgBiometrica": {
+          "name": "imgBiometrica",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "recibo": {
+          "name": "recibo",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "garantia": {
+          "name": "garantia",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "verified_data": {
+          "name": "verified_data",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "password": {
+          "name": "password",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "isInquilino": {
+          "name": "isInquilino",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "isPropietario": {
+          "name": "isPropietario",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "resetLink": {
+          "name": "resetLink",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "''"
+        },
+        "userState": {
+          "name": "userState",
+          "type": "enum_Users_userState",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "googleId": {
+          "name": "googleId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rol": {
+          "name": "rol",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "location": {
+          "name": "location",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "create": {
+          "name": "create",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "deletedAt": {
+          "name": "deletedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "Users_email_key": {
+          "name": "Users_email_key",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      }
+    },
+    "public.VariableEditorTexts": {
+      "name": "VariableEditorTexts",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.user_packs": {
+      "name": "user_packs",
+      "schema": "",
+      "columns": {
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "UserId": {
+          "name": "UserId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "PackId": {
+          "name": "PackId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "user_packs_UserId_Users_id_fk": {
+          "name": "user_packs_UserId_Users_id_fk",
+          "tableFrom": "user_packs",
+          "tableTo": "Users",
+          "columnsFrom": [
+            "UserId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "user_packs_PackId_Packs_id_fk": {
+          "name": "user_packs_PackId_Packs_id_fk",
+          "tableFrom": "user_packs",
+          "tableTo": "Packs",
+          "columnsFrom": [
+            "PackId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {
+        "user_packs_pkey": {
+          "name": "user_packs_pkey",
+          "columns": [
+            "UserId",
+            "PackId"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "public.user_tasks": {
+      "name": "user_tasks",
+      "schema": "",
+      "columns": {
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TaskId": {
+          "name": "TaskId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "UserId": {
+          "name": "UserId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "user_tasks_TaskId_Tasks_id_fk": {
+          "name": "user_tasks_TaskId_Tasks_id_fk",
+          "tableFrom": "user_tasks",
+          "tableTo": "Tasks",
+          "columnsFrom": [
+            "TaskId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "user_tasks_UserId_Users_id_fk": {
+          "name": "user_tasks_UserId_Users_id_fk",
+          "tableFrom": "user_tasks",
+          "tableTo": "Users",
+          "columnsFrom": [
+            "UserId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {
+        "user_tasks_pkey": {
+          "name": "user_tasks_pkey",
+          "columns": [
+            "TaskId",
+            "UserId"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
     }
   },
-  "enums": {},
+  "enums": {
+    "public.enum_Contracts_operationType": {
+      "name": "enum_Contracts_operationType",
+      "schema": "public",
+      "values": [
+        "sale",
+        "rent",
+        "tempRent",
+        "salePost",
+        "rentPost"
+      ]
+    },
+    "public.enum_Contracts_status": {
+      "name": "enum_Contracts_status",
+      "schema": "public",
+      "values": [
+        "template",
+        "pending",
+        "signed",
+        "canceled",
+        "finished"
+      ]
+    },
+    "public.enum_Contracts_type": {
+      "name": "enum_Contracts_type",
+      "schema": "public",
+      "values": [
+        "fisico",
+        "signature"
+      ]
+    },
+    "public.enum_Cupons_status": {
+      "name": "enum_Cupons_status",
+      "schema": "public",
+      "values": [
+        "Active",
+        "Deleted",
+        "Paused"
+      ]
+    },
+    "public.enum_DraftAlquilers_status": {
+      "name": "enum_DraftAlquilers_status",
+      "schema": "public",
+      "values": [
+        "Aprobado",
+        "Pendiente",
+        "En evaluación",
+        "Rechazado",
+        "Listo para firmar"
+      ]
+    },
+    "public.enum_Payments_paymentMethod": {
+      "name": "enum_Payments_paymentMethod",
+      "schema": "public",
+      "values": [
+        "mercadopago",
+        "black",
+        "financiación black"
+      ]
+    },
+    "public.enum_Payments_status": {
+      "name": "enum_Payments_status",
+      "schema": "public",
+      "values": [
+        "approved",
+        "cancelled",
+        "pending"
+      ]
+    },
+    "public.enum_Payments_type": {
+      "name": "enum_Payments_type",
+      "schema": "public",
+      "values": [
+        "Fees",
+        "Reservation"
+      ]
+    },
+    "public.enum_Posts_status": {
+      "name": "enum_Posts_status",
+      "schema": "public",
+      "values": [
+        "Active",
+        "Paused",
+        "Deleted",
+        "Pendiente",
+        "Denegada"
+      ]
+    },
+    "public.enum_Posts_type": {
+      "name": "enum_Posts_type",
+      "schema": "public",
+      "values": [
+        "alquiler",
+        "venta",
+        "temporal"
+      ]
+    },
+    "public.enum_Properties_hostingType": {
+      "name": "enum_Properties_hostingType",
+      "schema": "public",
+      "values": [
+        "Alojamiento entero",
+        "Una habitación",
+        "Habitación compartida"
+      ]
+    },
+    "public.enum_Properties_propertyStatus": {
+      "name": "enum_Properties_propertyStatus",
+      "schema": "public",
+      "values": [
+        "En construcción",
+        "A estrenar",
+        "Bueno",
+        "Muy bueno",
+        "Excelente",
+        "Reciclado",
+        "A restaurar",
+        "Otro"
+      ]
+    },
+    "public.enum_Tasks_category": {
+      "name": "enum_Tasks_category",
+      "schema": "public",
+      "values": [
+        "Motivo de consulta"
+      ]
+    },
+    "public.enum_Tasks_description": {
+      "name": "enum_Tasks_description",
+      "schema": "public",
+      "values": [
+        "Solicitud de Publicación para Venta",
+        "Solicitud de Publicación para Alquiler",
+        "Solicitud de Publicación para Temporal",
+        "Solicitud de Alquiler",
+        "Solicitud de Venta",
+        "Baja de Usuario",
+        "Alta de Usuario",
+        "Enviar dinero al Propietario por mes de alquiler",
+        "Enviar dinero al Anfitrión reserva alquiler temporal aceptada",
+        "Enviar dinero de reserva de venta al propietario",
+        "Devolución de dinero al Inquilino",
+        "Devolución de dinero al Huésped reserva temporal denegada",
+        "Devolución de dinero al Comprador reserva de venta denegada",
+        "Responder Consulta de Publicación",
+        "Responder Ticket",
+        "Solicitud de Actualizacion de Cuota de Alquiler",
+        "Solicitud de Baja de Contrato",
+        "Entrega de Llaves de Inmueble",
+        "Reporte de Publicación-Usuario",
+        "Notificación de Compra de Garantia",
+        "Solicitud de adhesión de Representante",
+        "Pago a propietarios de morosos con garantia trustfund",
+        "Solicitud de reserva de alquiler temporal",
+        "Solicitud de reporte Publicación",
+        "Solicitud de financiación de honorarios de alquiler",
+        "Otro"
+      ]
+    },
+    "public.enum_Tasks_status": {
+      "name": "enum_Tasks_status",
+      "schema": "public",
+      "values": [
+        "Pendiente",
+        "A revisar",
+        "Revisada",
+        "Finalizada"
+      ]
+    },
+    "public.enum_Tickets_category": {
+      "name": "enum_Tickets_category",
+      "schema": "public",
+      "values": [
+        "Consulta",
+        "Procesos",
+        "Reclamos"
+      ]
+    },
+    "public.enum_Tickets_description": {
+      "name": "enum_Tickets_description",
+      "schema": "public",
+      "values": [
+        "Consultas",
+        "Consulta de Publicación",
+        "Entrega de llaves de inmueble",
+        "Reclamos",
+        "Actualización de cuota de alquiler",
+        "Baja de contrato",
+        "Coordinar Hospedaje",
+        "Coordinar venta entre interesados",
+        "Otro"
+      ]
+    },
+    "public.enum_Tickets_state": {
+      "name": "enum_Tickets_state",
+      "schema": "public",
+      "values": [
+        "Abierto",
+        "Cerrado"
+      ]
+    },
+    "public.enum_Users_type": {
+      "name": "enum_Users_type",
+      "schema": "public",
+      "values": [
+        "Admin",
+        "Agente",
+        "User",
+        "Inmobiliaria",
+        "Locked"
+      ]
+    },
+    "public.enum_Users_userState": {
+      "name": "enum_Users_userState",
+      "schema": "public",
+      "values": [
+        "Active",
+        "Delete",
+        "Inactive"
+      ]
+    }
+  },
   "schemas": {},
   "_meta": {
     "columns": {},

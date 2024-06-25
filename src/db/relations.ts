@@ -1,5 +1,18 @@
 import { relations } from "drizzle-orm/relations";
 import { Provincia, SubProvincia, Partidos, Localidads, Barrios, ContractTypes, Contracts, Users, Favorites, Tickets, Messages, Packs, Payments, Properties, PropertyTypes, Posts, UserCupons, Cupons, Tasks, user_tasks, user_packs } from "./schema";
+import { drizzle } from "drizzle-orm/node-postgres";
+import { Client } from "pg";
+const credentials = process.env.NEXT_PUBLIC_PG_CONNECTION_STRING;
+
+const client = new Client({
+  connectionString: credentials,
+});
+
+client.connect()
+  .then(() => console.log('Connected to DB'))
+  .catch((error) => console.log(`Error connecting to DB: ${error.message}`));
+
+export const db = drizzle(client);
 
 export const SubProvinciaRelations = relations(SubProvincia, ({one, many}) => ({
 	Provincia: one(Provincia, {
